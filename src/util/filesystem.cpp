@@ -37,11 +37,7 @@
 #include "archive/seven_zip.hpp"
 #include "archive/tar.hpp"
 #include "archive/zip.hpp"
-#include "galapix/app.hpp"
-#include "surface/software_surface.hpp"
-#include "surface/software_surface_factory.hpp"
 #include "util/filesystem.hpp"
-#include "util/raise_exception.hpp"
 
 std::string Filesystem::home_directory;
 
@@ -68,11 +64,11 @@ Filesystem::find_exe(const std::string& name)
 
     free(path);
 
-    raise_runtime_error("Filesystem::find_exe(): Couldn't find " + name + " in PATH");
+    throw std::runtime_error("Filesystem::find_exe(): Couldn't find " + name + " in PATH");
   }
   else
   {
-    raise_runtime_error("Filesystem::find_exe(): Couldn't get PATH environment variable");
+    throw std::runtime_error("Filesystem::find_exe(): Couldn't get PATH environment variable");
   }
 }
 
@@ -172,7 +168,7 @@ Filesystem::init()
   }
   else
   {
-    raise_runtime_error("Filesystem::init(): Couldn't get HOME environment variable");
+    throw std::runtime_error("Filesystem::init(): Couldn't get HOME environment variable");
   }
 
   mkdir(home_directory + "/.galapix");
@@ -185,7 +181,7 @@ Filesystem::mkdir(const std::string& pathname)
   {
     if (::mkdir(pathname.c_str(), S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP) != 0)
     {
-      raise_runtime_error("Filesystem::mkdir(): " + pathname + ": " + strerror(errno));
+      throw std::runtime_error("Filesystem::mkdir(): " + pathname + ": " + strerror(errno));
     }
     else
     {
@@ -242,7 +238,7 @@ Filesystem::copy_mtime(const std::string& from_filename, const std::string& to_f
   struct stat stat_buf;
   if (stat(from_filename.c_str(), &stat_buf) != 0)
   {
-    raise_runtime_error("Filesystem::copy_mtime(): " + from_filename + ": " + strerror(errno));
+    throw std::runtime_error("Filesystem::copy_mtime(): " + from_filename + ": " + strerror(errno));
   }
 
   struct utimbuf time_buf;
@@ -264,13 +260,13 @@ Filesystem::get_magic(const std::string& filename)
   if (!in)
   {
     int err = errno;
-    raise_exception(std::runtime_error, filename << ": couldn't open file: " << strerror(err));
+    throw std::runtime_error(filename + ": couldn't open file: " + strerror(err));
   }
   else
   {
     if (in.read(buf, sizeof(buf)).bad())
     {
-      raise_exception(std::runtime_error, filename << ": failed to read " << sizeof(buf) << " bytes");
+      throw std::runtime_error(filename + ": failed to read " + std::to_string( sizeof(buf)) + " bytes");
     }
     else
     {
@@ -285,7 +281,7 @@ Filesystem::get_size(const std::string& filename)
   struct stat stat_buf;
   if (stat(filename.c_str(), &stat_buf) != 0)
   {
-    raise_runtime_error("Filesystem::get_size(): " + filename + ": " + strerror(errno));
+    throw std::runtime_error("Filesystem::get_size(): " + filename + ": " + strerror(errno));
   }
   return static_cast<size_t>(stat_buf.st_size);
 }
@@ -296,108 +292,9 @@ Filesystem::get_mtime(const std::string& filename)
   struct stat stat_buf;
   if (stat(filename.c_str(), &stat_buf) != 0)
   {
-    raise_runtime_error("Filesystem::get_mtime(): " + filename + ": " + strerror(errno));
+    throw std::runtime_error("Filesystem::get_mtime(): " + filename + ": " + strerror(errno));
   }
   return stat_buf.st_mtime;
-}
-
-// static bool has_prefix(const std::string& lhs, const std::string rhs)
-// {
-//   if (lhs.length() < rhs.length())
-//     return false;
-//   else
-//     return lhs.compare(0, rhs.length(), rhs) == 0;
-// }
-
-void
-Filesystem::generate_image_file_list(const std::string& pathname, std::vector<URL>& file_list)
-{
-  if (!exist(pathname))
-  {
-    std::cout << "Filesystem::generate_jpeg_file_list(): " << pathname << " does not exist" << std::endl;
-  }
-  else
-  {
-    // generate a list of all the files in the directories
-    std::vector<std::string> lst;
-
-    if (is_directory(pathname))
-    {
-      open_directory_recursivly(pathname, lst);
-    }
-    else
-    {
-      lst.push_back(pathname);
-    }
-
-    // check the file list for valid entries, if entries are archives,
-    // get a file list from them
-    std::vector<std::future<std::vector<URL>>> archive_tasks;
-    for(std::vector<std::string>::iterator i = lst.begin(); i != lst.end(); ++i)
-    {
-      URL url = URL::from_filename(*i);
-
-      try
-      {
-        if (g_app.archive().is_archive(*i))
-        {
-          archive_tasks.push_back(std::async([i, url]() -> std::vector<URL> {
-                std::vector<URL> sub_file_list;
-
-                const ArchiveLoader* loader;
-                const auto& files = g_app.archive().get_filenames(*i, &loader);
-                for(const auto& file: files)
-                {
-                  URL archive_url = URL::from_string(url.str() + "//" + loader->str() + ":" + file);
-                  if (g_app.surface_factory().has_supported_extension(archive_url.str()))
-                  {
-                    sub_file_list.push_back(archive_url);
-                  }
-                }
-
-                return sub_file_list;
-              }));
-        }
-        else if (has_extension(*i, ".galapix"))
-        {
-          file_list.push_back(url);
-        }
-        else if (has_extension(*i, "ImageProperties.xml"))
-        {
-          file_list.push_back(url);
-        }
-        else if (url.get_protocol() == "buildin")
-        {
-          file_list.push_back(url);
-        }
-        else if (g_app.surface_factory().has_supported_extension(url.str()))
-        {
-          file_list.push_back(url);
-        }
-        else
-        {
-          //log_debug << "Filesystem::generate_image_file_list(): ignoring " << *i << std::endl;
-        }
-      }
-      catch(const std::exception& err)
-      {
-        log_warn(err.what());
-      }
-    }
-
-    for(auto& task: archive_tasks)
-    {
-      try
-      {
-        const auto& sub_lst = task.get();
-        file_list.insert(file_list.end(), sub_lst.begin(), sub_lst.end());
-      }
-      catch(const std::exception& err)
-      {
-        log_warn("Warning: {}", err.what());
-      }
-    }
-  }
 }
 
 std::string
@@ -495,7 +392,7 @@ Filesystem::readlines_from_file(const std::string& pathname, std::vector<std::st
 
   if (!in)
   {
-    raise_runtime_error("Filesystem::readlines_from_file(): Couldn't open file: " + pathname);
+    throw std::runtime_error("Filesystem::readlines_from_file(): Couldn't open file: " + pathname);
   }
   else
   {
@@ -515,7 +412,7 @@ Filesystem::remove(const std::string& filename)
   {
     std::ostringstream str;
     str << "Filesystem::remove: " << strerror(errno);
-    raise_runtime_error(str.str());
+    throw std::runtime_error(str.str());
   }
 }
 

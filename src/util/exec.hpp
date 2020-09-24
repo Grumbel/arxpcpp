@@ -17,11 +17,10 @@
 #ifndef HEADER_GALAPIX_UTIL_EXEC_HPP
 #define HEADER_GALAPIX_UTIL_EXEC_HPP
 
-#include <vector>
-#include <string>
 #include <optional>
-
-#include "util/blob.hpp"
+#include <span>
+#include <string>
+#include <vector>
 
 /** The Exec class allows to call external applications in a
     conventient vasion. */
@@ -54,7 +53,7 @@ public:
 
       @param blob The data passed on stdin
    */
-  void set_stdin(Blob const& blob);
+  void set_stdin(std::vector<uint8_t> blob);
 
   /** Start the external program
 
@@ -94,7 +93,7 @@ private:
   std::vector<uint8_t> m_stdout_vec;
   std::vector<uint8_t> m_stderr_vec;
 
-  Blob m_stdin_data;
+  std::vector<uint8_t> m_stdin_data;
 
 private:
   Exec (const Exec&);

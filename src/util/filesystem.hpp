@@ -17,8 +17,6 @@
 #ifndef HEADER_GALAPIX_UTIL_FILESYSTEM_HPP
 #define HEADER_GALAPIX_UTIL_FILESYSTEM_HPP
 
-#include "util/url.hpp"
-
 class Filesystem
 {
 private:
@@ -53,9 +51,6 @@ public:
 
   static time_t get_mtime(const std::string& filename);
   static size_t get_size(const std::string& filename);
-
-  /** Generate a recursive list of all images in pathname */
-  static void generate_image_file_list(const std::string& pathname, std::vector<URL>& file_list);
 
   static void init();
   static void deinit();

@@ -28,8 +28,6 @@
 #include <unistd.h>
 #include <logmich/log.hpp>
 
-#include "util/raise_exception.hpp"
-
 Exec::Exec(const std::string& program, bool absolute_path) :
   m_program(program),
   m_absolute_path(absolute_path),
@@ -54,9 +52,9 @@ Exec::set_working_directory(const std::string& path)
 }
 
 void
-Exec::set_stdin(Blob const& blob)
+Exec::set_stdin(std::vector<uint8_t> data)
 {
-  m_stdin_data = blob;
+  m_stdin_data = std::move(data);
 }
 
 int
@@ -68,7 +66,7 @@ Exec::exec()
 
   // FIXME: Bad, we potentially leak file descriptors
   if (pipe(stdout_fd) < 0 || pipe(stderr_fd) < 0 || pipe(stdin_fd) < 0) {
-    raise_runtime_error("Exec:exec(): pipe failed");
+    throw std::runtime_error("Exec:exec(): pipe failed");
   }
 
   pid_t pid = fork();
@@ -84,7 +82,7 @@ Exec::exec()
     close(stdin_fd[0]);
     close(stdin_fd[1]);
 
-    raise_runtime_error("Exec::exec(): fork failed: " << strerror(errnum));
+    throw std::runtime_error(std::string("Exec::exec(): fork failed: ") + strerror(errnum));
   }
   else if (pid == 0)
   { // child
@@ -168,9 +166,9 @@ Exec::process_io(int stdin_fd, int stdout_fd, int stderr_fd)
   char buffer[4096];
 
   // write data to stdin
-  if (m_stdin_data)
+  if (!m_stdin_data.empty())
   {
-    if (write(stdin_fd, m_stdin_data.get_data(), m_stdin_data.size()) < 0)
+    if (write(stdin_fd, m_stdin_data.data(), m_stdin_data.size()) < 0)
     {
       close(stdin_fd);
       close(stdout_fd);
@@ -178,7 +176,7 @@ Exec::process_io(int stdin_fd, int stdout_fd, int stderr_fd)
 
       std::ostringstream out;
       out << "Exec::process_io(): stdin write failure: " << str() << ": " << strerror(errno);
-      raise_runtime_error(out.str());
+      throw std::runtime_error(out.str());
     }
   }
   close(stdin_fd);
@@ -214,7 +212,7 @@ Exec::process_io(int stdin_fd, int stdout_fd, int stderr_fd)
 
       std::ostringstream out;
       out << "Exec::process_io(): select() failure: " << str() << ": " << strerror(errno);
-      raise_runtime_error(out.str());
+      throw std::runtime_error(out.str());
     }
     else if (retval == 0)
     {
@@ -233,7 +231,7 @@ Exec::process_io(int stdin_fd, int stdout_fd, int stderr_fd)
 
           std::ostringstream out;
           out << "Exec::process_io(): stdout read failure: " << str() << ": " << strerror(errno);
-          raise_runtime_error(out.str());
+          throw std::runtime_error(out.str());
         }
         else if (len > 0) // ok
         {
@@ -257,7 +255,7 @@ Exec::process_io(int stdin_fd, int stdout_fd, int stderr_fd)
 
           std::ostringstream out;
           out << "Exec::process_io(): stderr read failure: " << str() << ": " << strerror(errno);
-          raise_runtime_error(out.str());
+          throw std::runtime_error(out.str());
         }
         else if (len > 0) // ok
         {
