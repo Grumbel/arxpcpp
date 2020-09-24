@@ -4,3 +4,6 @@
 [submodule "external/logmich"]
 	path = external/logmich
 	url = https://gitlab.com/logmich/logmich.git
+[submodule "external/uitest"]
+	path = external/uitest
+	url = https://gitlab.com/grumbel/uitest.git
