@@ -1,3 +1,6 @@
 [submodule "external/cmake-modules"]
 	path = external/cmake-modules
 	url = https://gitlab.com/grumbel/cmake-modules.git
+[submodule "external/logmich"]
+	path = external/logmich
+	url = https://gitlab.com/logmich/logmich.git
