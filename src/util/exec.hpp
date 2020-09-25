@@ -53,7 +53,7 @@ public:
 
       @param blob The data passed on stdin
    */
-  void set_stdin(std::vector<uint8_t> blob);
+  void set_stdin(std::vector<uint8_t> data);
 
   /** Start the external program
 
