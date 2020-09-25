@@ -31,26 +31,26 @@ class ArchiveManager
 {
 public:
   ArchiveManager();
-  ArchiveManager(const std::string& tmpdir);
+  ArchiveManager(std::filesystem::path const& tmpdir);
   ~ArchiveManager();
 
-  bool is_archive(const std::string& filename) const;
+  bool is_archive(std::filesystem::path const& filename) const;
   bool is_archive(std::span<uint8_t const> data) const;
 
   /** Returns the list of files contained in the archive, if \a loader
       is supply the loader used in the process will be returned in
       it. */
-  std::vector<std::string> get_filenames(const std::string& zip_filename,
+  std::vector<std::string> get_filenames(std::filesystem::path const& zip_filename,
                                          const ArchiveLoader** loader_out = nullptr) const;
 
-  std::vector<uint8_t> get_file(const std::string& archive_filename, const std::string& filename) const;
-  std::vector<uint8_t> get_file(std::string const& archive_filename, const std::string& type, const std::string& filename) const;
+  std::vector<uint8_t> get_file(std::filesystem::path const& archive_filename, const std::string& filename) const;
+  std::vector<uint8_t> get_file(std::filesystem::path const& archive_filename, const std::string& type, const std::string& filename) const;
 
   /** Returns an Extraction object that allows fast access to files
       inside the archive. For archives that don't allow seeking this
       means the file are extracted to a temporary directiory, seekable
       archives are accessed directly. */
-  std::shared_ptr<Extraction> get_extraction(const std::string& archive_filename) const;
+  std::shared_ptr<Extraction> get_extraction(std::filesystem::path const& archive_filename) const;
 
 private:
   /** Returns a path to an empty directory that can be used for extractions */
@@ -58,9 +58,9 @@ private:
 
   void add_loader(std::unique_ptr<ArchiveLoader> loader);
 
-  const ArchiveLoader& get_loader(const std::string& filename) const;
-  const ArchiveLoader* find_loader_by_filename(const std::string& filename) const;
-  const ArchiveLoader* find_loader_by_magic(const std::string& filename) const;
+  const ArchiveLoader& get_loader(std::filesystem::path const& filename) const;
+  const ArchiveLoader* find_loader_by_filename(std::filesystem::path const& filename) const;
+  const ArchiveLoader* find_loader_by_magic(std::filesystem::path const& filename) const;
 
 private:
   std::filesystem::path m_tmpdir;

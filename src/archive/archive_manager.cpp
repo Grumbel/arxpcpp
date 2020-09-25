@@ -37,7 +37,7 @@ ArchiveManager::ArchiveManager() :
 {
 }
 
-ArchiveManager::ArchiveManager(const std::string& tmpdir) :
+ArchiveManager::ArchiveManager(std::filesystem::path const& tmpdir) :
   m_tmpdir(tmpdir),
   m_loader(),
   m_loader_by_file_exts(),
@@ -70,7 +70,7 @@ ArchiveManager::add_loader(std::unique_ptr<ArchiveLoader> loader)
 }
 
 bool
-ArchiveManager::is_archive(const std::string& filename) const
+ArchiveManager::is_archive(std::filesystem::path const& filename) const
 {
   try
   {
@@ -91,7 +91,7 @@ ArchiveManager::is_archive(std::span<uint8_t const> data) const
 }
 
 const ArchiveLoader&
-ArchiveManager::get_loader(const std::string& filename) const
+ArchiveManager::get_loader(std::filesystem::path const& filename) const
 {
   auto const* loader = find_loader_by_magic(filename);
 
@@ -102,7 +102,7 @@ ArchiveManager::get_loader(const std::string& filename) const
 
   if (!loader)
   {
-    throw std::runtime_error("failed to find loader for archive file: " + filename);
+    throw std::runtime_error("failed to find loader for archive file: " + filename.string());
   }
   else
   {
@@ -111,7 +111,7 @@ ArchiveManager::get_loader(const std::string& filename) const
 }
 
 const ArchiveLoader*
-ArchiveManager::find_loader_by_filename(const std::string& filename) const
+ArchiveManager::find_loader_by_filename(std::filesystem::path const& filename) const
 {
   for(const auto& ext: m_loader_by_file_exts)
   {
@@ -124,7 +124,7 @@ ArchiveManager::find_loader_by_filename(const std::string& filename) const
 }
 
 const ArchiveLoader*
-ArchiveManager::find_loader_by_magic(const std::string& filename) const
+ArchiveManager::find_loader_by_magic(std::filesystem::path const& filename) const
 {
   std::string start_of_file = Filesystem::get_magic(filename);
 
@@ -141,7 +141,7 @@ ArchiveManager::find_loader_by_magic(const std::string& filename) const
 }
 
 std::vector<std::string>
-ArchiveManager::get_filenames(const std::string& zip_filename,
+ArchiveManager::get_filenames(std::filesystem::path const& zip_filename,
                               const ArchiveLoader** loader_out) const
 {
   const auto& loader = get_loader(zip_filename);
@@ -154,14 +154,14 @@ ArchiveManager::get_filenames(const std::string& zip_filename,
 }
 
 std::vector<uint8_t>
-ArchiveManager::get_file(const std::string& archive_filename, const std::string& filename) const
+ArchiveManager::get_file(std::filesystem::path const& archive_filename, const std::string& filename) const
 {
   const auto& loader = get_loader(archive_filename);
   return loader.get_file(archive_filename, filename);
 }
 
 std::shared_ptr<Extraction>
-ArchiveManager::get_extraction(const std::string& archive_filename) const
+ArchiveManager::get_extraction(std::filesystem::path const& archive_filename) const
 {
   const auto& loader = get_loader(archive_filename);
   if (loader.is_seekable(archive_filename))
@@ -177,7 +177,8 @@ ArchiveManager::get_extraction(const std::string& archive_filename) const
 }
 
 std::vector<uint8_t>
-ArchiveManager::get_file(std::string const& archive_filename, const std::string& type, const std::string& filename) const
+ArchiveManager::get_file(std::filesystem::path const& archive_filename, std::string const& type,
+                         const std::string& filename) const
 {
   auto it = std::find_if(m_loader.begin(), m_loader.end(),
                          [&type](std::unique_ptr<ArchiveLoader> const& loader) {

@@ -17,15 +17,16 @@
 #ifndef HEADER_GALAPIX_ARCHIVE_ZIP_HPP
 #define HEADER_GALAPIX_ARCHIVE_ZIP_HPP
 
+#include <filesystem>
 #include <string>
 #include <vector>
 
 class Zip
 {
 public:
-  static std::vector<std::string> get_filenames(const std::string& zip_filename);
-  static std::vector<uint8_t> get_file(const std::string& zip_filename, const std::string& filename);
-  static void extract(const std::string& zip_filename, const std::string& target_directory);
+  static std::vector<std::string> get_filenames(std::filesystem::path const& zip_filename);
+  static std::vector<uint8_t> get_file(std::filesystem::path const& zip_filename, const std::string& filename);
+  static void extract(std::filesystem::path const& zip_filename, std::filesystem::path const& target_directory);
 };
 
 #endif

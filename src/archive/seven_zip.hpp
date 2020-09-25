@@ -17,6 +17,7 @@
 #ifndef HEADER_GALAPIX_ARCHIVE_SEVEN_ZIP_HPP
 #define HEADER_GALAPIX_ARCHIVE_SEVEN_ZIP_HPP
 
+#include <filesystem>
 #include <string>
 #include <vector>
 
@@ -24,11 +25,11 @@
 class SevenZip
 {
 public:
-  static std::vector<std::string> get_filenames(const std::string& zip_filename);
+  static std::vector<std::string> get_filenames(std::filesystem::path const& zip_filename);
 
   /** FIXME: Not very practical as 7-Zip has to extract the whole
       archive to get to a single file */
-  static std::vector<uint8_t> get_file(const std::string& zip_filename, const std::string& filename);
+  static std::vector<uint8_t> get_file(std::filesystem::path const& zip_filename, const std::string& filename);
 
   /**
      Extract the content of \a archive to \a target_directory, \a
@@ -36,7 +37,7 @@ public:
      calling this function. \a target_directory must be empty if it
      already exists.
   */
-  static void extract(const std::string& archive, const std::string& target_directory);
+  static void extract(std::filesystem::path const& archive, std::filesystem::path const& target_directory);
 };
 
 #endif

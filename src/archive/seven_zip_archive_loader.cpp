@@ -38,19 +38,19 @@ SevenZipArchiveLoader::get_extensions() const
 }
 
 std::vector<std::string>
-SevenZipArchiveLoader::get_filenames(const std::string& zip_filename) const
+SevenZipArchiveLoader::get_filenames(std::filesystem::path const& zip_filename) const
 {
   return SevenZip::get_filenames(zip_filename);
 }
 
 std::vector<uint8_t>
-SevenZipArchiveLoader::get_file(const std::string& zip_filename, const std::string& filename) const
+SevenZipArchiveLoader::get_file(std::filesystem::path const& zip_filename, const std::string& filename) const
 {
   return SevenZip::get_file(zip_filename, filename);
 }
 
 void
-SevenZipArchiveLoader::extract(const std::string& archive, const std::string& target_directory) const
+SevenZipArchiveLoader::extract(std::filesystem::path const& archive, std::filesystem::path const& target_directory) const
 {
   SevenZip::extract(archive, target_directory);
 }

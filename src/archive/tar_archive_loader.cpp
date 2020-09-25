@@ -38,19 +38,19 @@ TarArchiveLoader::get_extensions() const
 }
 
 std::vector<std::string>
-TarArchiveLoader::get_filenames(const std::string& zip_filename) const
+TarArchiveLoader::get_filenames(std::filesystem::path const& zip_filename) const
 {
   return Tar::get_filenames(zip_filename);
 }
 
 std::vector<uint8_t>
-TarArchiveLoader::get_file(const std::string& zip_filename, const std::string& filename) const
+TarArchiveLoader::get_file(std::filesystem::path const& zip_filename, const std::string& filename) const
 {
   return Tar::get_file(zip_filename, filename);
 }
 
 void
-TarArchiveLoader::extract(const std::string& archive, const std::string& target_directory) const
+TarArchiveLoader::extract(std::filesystem::path const& archive, std::filesystem::path const& target_directory) const
 {
   Tar::extract(archive, target_directory);
 }

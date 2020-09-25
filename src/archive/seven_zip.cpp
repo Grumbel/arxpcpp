@@ -34,7 +34,7 @@ bool has_prefix(const std::string& lhs, const std::string& rhs)
 } // namespace
 
 std::vector<std::string>
-SevenZip::get_filenames(const std::string& zip_filename)
+SevenZip::get_filenames(std::filesystem::path const& zip_filename)
 {
   std::vector<std::string> lst;
 
@@ -81,7 +81,7 @@ SevenZip::get_filenames(const std::string& zip_filename)
 }
 
 std::vector<uint8_t>
-SevenZip::get_file(const std::string& zip_filename, const std::string& filename)
+SevenZip::get_file(std::filesystem::path const& zip_filename, const std::string& filename)
 {
   Exec zip("7zr");
   zip.arg("x").arg("-so");
@@ -100,10 +100,10 @@ SevenZip::get_file(const std::string& zip_filename, const std::string& filename)
 }
 
 void
-SevenZip::extract(const std::string& archive, const std::string& target_directory)
+SevenZip::extract(std::filesystem::path const& archive, std::filesystem::path const& target_directory)
 {
   Exec zip("7zr");
-  zip.arg("x").arg("-o" + target_directory);
+  zip.arg("x").arg("-o" + target_directory.string());
   zip.arg(archive);
   if (zip.exec() != 0)
   {

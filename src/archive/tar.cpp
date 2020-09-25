@@ -21,7 +21,7 @@
 #include "util/exec.hpp"
 
 std::vector<std::string>
-Tar::get_filenames(const std::string& tar_filename)
+Tar::get_filenames(std::filesystem::path const& tar_filename)
 {
   Exec tar("tar");
   tar.arg("--list").arg("--file").arg(tar_filename);
@@ -48,7 +48,7 @@ Tar::get_filenames(const std::string& tar_filename)
 }
 
 std::vector<uint8_t>
-Tar::get_file(const std::string& tar_filename, const std::string& filename)
+Tar::get_file(std::filesystem::path const& tar_filename, const std::string& filename)
 {
   Exec tar("tar");
   tar.arg("--extract").arg("--to-stdout").arg("--file").arg(tar_filename).arg(filename);
@@ -63,7 +63,7 @@ Tar::get_file(const std::string& tar_filename, const std::string& filename)
 }
 
 void
-Tar::extract(const std::string& tar_filename, const std::string& target_directory)
+Tar::extract(std::filesystem::path const& tar_filename, std::filesystem::path const& target_directory)
 {
   Exec tar("tar");
   tar

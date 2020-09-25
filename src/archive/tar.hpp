@@ -17,18 +17,19 @@
 #ifndef HEADER_GALAPIX_ARCHIVE_TAR_HPP
 #define HEADER_GALAPIX_ARCHIVE_TAR_HPP
 
+#include <filesystem>
 #include <string>
 #include <vector>
 
 class Tar
 {
 public:
-  static std::vector<std::string> get_filenames(const std::string& tar_filename);
-  static std::vector<uint8_t> get_file(const std::string& tar_filename, const std::string& filename);
+  static std::vector<std::string> get_filenames(std::filesystem::path const& tar_filename);
+  static std::vector<uint8_t> get_file(std::filesystem::path const& tar_filename, const std::string& filename);
 
   /** Extract the content of \a archive to \a target_directory, \a
       target_directory must exist prior to calling this function */
-  static void extract(const std::string& tar_filename, const std::string& target_directory);
+  static void extract(std::filesystem::path const& tar_filename, std::filesystem::path const& target_directory);
 };
 
 #endif

@@ -41,19 +41,19 @@ ZipArchiveLoader::get_extensions() const
 }
 
 std::vector<std::string>
-ZipArchiveLoader::get_filenames(const std::string& zip_filename) const
+ZipArchiveLoader::get_filenames(std::filesystem::path const& zip_filename) const
 {
   return Zip::get_filenames(zip_filename);
 }
 
 std::vector<uint8_t>
-ZipArchiveLoader::get_file(const std::string& zip_filename, const std::string& filename) const
+ZipArchiveLoader::get_file(std::filesystem::path const& zip_filename, const std::string& filename) const
 {
   return Zip::get_file(zip_filename, filename);
 }
 
 void
-ZipArchiveLoader::extract(const std::string& archive, const std::string& target_directory) const
+ZipArchiveLoader::extract(std::filesystem::path const& archive, std::filesystem::path const& target_directory) const
 {
   Zip::extract(archive, target_directory);
 }

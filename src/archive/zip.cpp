@@ -154,10 +154,10 @@ void unzip_parse_output(std::string_view data,
 } // namespace
 
 std::vector<std::string>
-Zip::get_filenames(const std::string& zip_filename)
+Zip::get_filenames(std::filesystem::path const& zip_filename)
 {
   Exec unzip("unzip");
-  unzip.arg("-lqq").arg(zip_filename);
+  unzip.arg("-lqq").arg(zip_filename.string());
   int zip_return_code = unzip.exec();
   if (zip_return_code == 0)
   {
@@ -176,7 +176,7 @@ Zip::get_filenames(const std::string& zip_filename)
 }
 
 std::vector<uint8_t>
-Zip::get_file(const std::string& zip_filename, const std::string& filename_in)
+Zip::get_file(std::filesystem::path const& zip_filename, const std::string& filename_in)
 {
   // unzip uses wildcard expressions, not raw filenames, thus we have
   // to escape a few special characters
@@ -217,7 +217,7 @@ Zip::get_file(const std::string& zip_filename, const std::string& filename_in)
 }
 
 void
-Zip::extract(const std::string& zip_filename, const std::string& target_directory)
+Zip::extract(std::filesystem::path const& zip_filename, std::filesystem::path const& target_directory)
 {
   Exec unzip("unzip");
   unzip.arg("-qq").arg(zip_filename).arg("-d").arg(target_directory);

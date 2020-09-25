@@ -37,19 +37,19 @@ RarArchiveLoader::get_extensions() const
 }
 
 std::vector<std::string>
-RarArchiveLoader::get_filenames(const std::string& zip_filename) const
+RarArchiveLoader::get_filenames(std::filesystem::path const& zip_filename) const
 {
   return Rar::get_filenames(zip_filename);
 }
 
 std::vector<uint8_t>
-RarArchiveLoader::get_file(const std::string& zip_filename, const std::string& filename) const
+RarArchiveLoader::get_file(std::filesystem::path const& zip_filename, const std::string& filename) const
 {
   return Rar::get_file(zip_filename, filename);
 }
 
 void
-RarArchiveLoader::extract(const std::string& archive, const std::string& target_directory) const
+RarArchiveLoader::extract(std::filesystem::path const& archive, std::filesystem::path const& target_directory) const
 {
   Rar::extract(archive, target_directory);
 }

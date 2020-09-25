@@ -27,10 +27,10 @@ public:
   std::vector<std::string> get_magics() const override;
   std::vector<std::string> get_extensions() const override;
 
-  std::vector<std::string> get_filenames(const std::string& zip_filename) const override;
-  std::vector<uint8_t> get_file(const std::string& zip_filename, const std::string& filename) const override;
-  void extract(const std::string& archive, const std::string& target_directory) const override;
-  bool is_seekable(const std::string& archive) const override { return true; }
+  std::vector<std::string> get_filenames(std::filesystem::path const& zip_filename) const override;
+  std::vector<uint8_t> get_file(std::filesystem::path const& zip_filename, const std::string& filename) const override;
+  void extract(std::filesystem::path const& archive, std::filesystem::path const& target_directory) const override;
+  bool is_seekable(std::filesystem::path const& archive) const override { return true; }
 
   std::string str() const override { return "zip"; }
 
