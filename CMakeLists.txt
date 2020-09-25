@@ -33,6 +33,7 @@ function(build_dependencies)
     endif()
   endif()
 
+  set(BUILD_TESTS OFF)
   if(NOT TARGET logmich)
     add_subdirectory(external/logmich/ EXCLUDE_FROM_ALL)
   endif()
@@ -62,9 +63,9 @@ if(BUILD_TESTS)
   file(GLOB UITEST_ARCH_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} uitest/*_test.cpp)
   add_executable(uitest_arch ${UITEST_ARCH_SOURCES})
   set_target_properties(uitest_arch PROPERTIES
-  CXX_STANDARD 20
-  CXX_STANDARD_REQUIRED ON
-  CXX_EXTENSIONS OFF)
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED ON
+    CXX_EXTENSIONS OFF)
   target_compile_options(uitest_arch PRIVATE ${WARNINGS_CXX_FLAGS})
   target_include_directories(uitest_arch PRIVATE src/)
   target_link_libraries(uitest_arch
@@ -74,22 +75,22 @@ if(BUILD_TESTS)
 
   find_package(GTest REQUIRED)
 
-  # file(GLOB TEST_ARCH_SOURCES test/*_test.cpp)
-  # add_executable(test_arch ${TEST_ARCH_SOURCES})
-  # set_target_properties(test_arch PROPERTIES
-  #   CXX_STANDARD 20
-  #   CXX_STANDARD_REQUIRED ON
-  #   CXX_EXTENSIONS OFF)
-  # target_compile_options(test_arch PRIVATE ${WARNINGS_CXX_FLAGS})
-  # target_link_libraries(test_arch
-  #   arch
-  #   GTest::GTest
-  #   GTest::Main)
+  file(GLOB TEST_ARCH_SOURCES test/*_test.cpp)
+  add_executable(test_arch ${TEST_ARCH_SOURCES})
+  set_target_properties(test_arch PROPERTIES
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED ON
+    CXX_EXTENSIONS OFF)
+  target_compile_options(test_arch PRIVATE ${WARNINGS_CXX_FLAGS})
+  target_link_libraries(test_arch
+    arch
+    GTest::GTest
+    GTest::Main)
 
-  # enable_testing()
-  # add_test(NAME test_arch
-  #   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-  #   COMMAND test_arch)
+  enable_testing()
+  add_test(NAME test_arch
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/test/"
+    COMMAND test_arch)
 endif()
 
 install(TARGETS arch
