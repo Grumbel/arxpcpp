@@ -45,7 +45,6 @@ Rar::get_filenames(std::filesystem::path const& rar_filename)
   else
   {
     throw std::runtime_error(std::string(rar.get_stderr().begin(), rar.get_stderr().end()));
-    return std::vector<std::string>();
   }
 }
 
@@ -61,7 +60,6 @@ Rar::get_file(std::filesystem::path const& rar_filename, const std::string& file
   else
   {
     throw std::runtime_error(rar.str() + "\n" + std::string(rar.get_stderr().begin(), rar.get_stderr().end()));
-    return {};
   }
 }
 

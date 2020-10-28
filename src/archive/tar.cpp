@@ -43,7 +43,6 @@ Tar::get_filenames(std::filesystem::path const& tar_filename)
   else
   {
     throw std::runtime_error("Tar::get_filenames(): " + std::string(tar.get_stderr().begin(), tar.get_stderr().end()));
-    return std::vector<std::string>();
   }
 }
 

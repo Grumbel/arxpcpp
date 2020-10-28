@@ -45,7 +45,6 @@ SevenZip::get_filenames(std::filesystem::path const& zip_filename)
   if (zip.exec() != 0)
   {
     throw std::runtime_error("SevenZip::get_filenames(): " + std::string(zip.get_stderr().begin(), zip.get_stderr().end()));
-    return std::vector<std::string>();
   }
   else
   {
@@ -95,7 +94,6 @@ SevenZip::get_file(std::filesystem::path const& zip_filename, const std::string&
   else
   {
     throw std::runtime_error(zip.str() + "\n" + std::string(zip.get_stderr().begin(), zip.get_stderr().end()));
-    return {};
   }
 }
 
