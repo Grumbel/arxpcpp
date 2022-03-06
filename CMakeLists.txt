@@ -17,7 +17,10 @@
 cmake_minimum_required(VERSION 3.6)
 project(arch)
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/external/cmake-modules/)
+set(TINYCMMC_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/external/cmake-modules/modules/")
+find_package(tinycmmc CONFIG)
+message(STATUS "tinycmmc module path: ${TINYCMMC_MODULE_PATH}")
+list(APPEND CMAKE_MODULE_PATH ${TINYCMMC_MODULE_PATH})
 
 include(GNUInstallDirs)
 include(MaximumWarnings)
@@ -28,12 +31,16 @@ find_package(PkgConfig REQUIRED)
 function(build_dependencies)
   if(BUILD_TESTS)
     set(BUILD_TESTS OFF)
+
+    find_package(uitest)
     if(NOT TARGET uitest)
       add_subdirectory(external/uitest/ EXCLUDE_FROM_ALL)
     endif()
   endif()
 
   set(BUILD_TESTS OFF)
+
+  find_package(logmich)
   if(NOT TARGET logmich)
     add_subdirectory(external/logmich/ EXCLUDE_FROM_ALL)
   endif()
@@ -41,22 +48,43 @@ endfunction()
 build_dependencies()
 
 file(GLOB ARCH_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-  include/arch/*.hpp)
+  src/util/*.hpp
+  src/archive/*.hpp)
 
 file(GLOB ARCH_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
   src/util/*.cpp
   src/archive/*.cpp)
 
 add_library(arch STATIC ${ARCH_SOURCES})
+set_target_properties(arch PROPERTIES PUBLIC_HEADER "${ARCH_HEADERS}")
 set_target_properties(arch PROPERTIES
   CXX_STANDARD 20
   CXX_STANDARD_REQUIRED ON
   CXX_EXTENSIONS OFF)
 target_link_libraries(arch PUBLIC
   logmich)
-target_include_directories(arch INTERFACE src/) # include/
-target_include_directories(arch PRIVATE src/)
-set_target_properties(arch PROPERTIES PUBLIC_HEADER "${ARCH_HEADERS}")
+target_include_directories(arch PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+
+install(TARGETS arch
+  EXPORT arch-targets
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/archive)
+
+# CMake integration
+configure_file(arch-config.cmake.in
+  "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/arch-config.cmake" @ONLY)
+install(FILES
+  "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/arch-config.cmake"
+  DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/arch/")
+export(TARGETS arch
+  FILE "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/arch-targets.cmake")
+export(PACKAGE arch)
+install(EXPORT arch-targets
+  DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/arch/")
 
 if(BUILD_TESTS)
   # build interactive tests

@@ -1,0 +1,9 @@
+get_filename_component(UITEST_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+
+include(CMakeFindDependencyMacro)
+
+if(NOT TARGET arch)
+  include("${UITEST_CMAKE_DIR}/arch-targets.cmake")
+endif()
+
+# EOF #
