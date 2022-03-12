@@ -41,7 +41,7 @@ function(build_dependencies)
   set(BUILD_TESTS OFF)
 
   find_package(logmich)
-  if(NOT TARGET logmich)
+  if(NOT TARGET logmich::logmich)
     add_subdirectory(external/logmich/ EXCLUDE_FROM_ALL)
   endif()
 endfunction()

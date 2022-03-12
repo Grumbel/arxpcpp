@@ -38,6 +38,8 @@
               tinycmmc.defaultPackage.${system}
               logmich.defaultPackage.${system}
               uitest.defaultPackage.${system}
+
+              pkgs.gtest
             ];
            };
         };
