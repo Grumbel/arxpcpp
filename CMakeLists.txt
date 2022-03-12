@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 cmake_minimum_required(VERSION 3.6)
-project(arch)
+project(arch VERSION 0.0.0)
 
 set(TINYCMMC_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/external/cmake-modules/modules/")
 find_package(tinycmmc CONFIG)
@@ -68,24 +68,6 @@ target_include_directories(arch PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
 
-install(TARGETS arch
-  EXPORT arch-targets
-  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/archive)
-
-# CMake integration
-configure_file(arch-config.cmake.in
-  "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/arch-config.cmake" @ONLY)
-install(FILES
-  "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/arch-config.cmake"
-  DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/arch/")
-export(TARGETS arch
-  FILE "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/arch-targets.cmake")
-export(PACKAGE arch)
-install(EXPORT arch-targets
-  DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/arch/")
-
 if(BUILD_TESTS)
   # build interactive tests
   file(GLOB UITEST_ARCH_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} uitest/*_test.cpp)
@@ -121,7 +103,6 @@ if(BUILD_TESTS)
     COMMAND test_arch)
 endif()
 
-install(TARGETS arch
-  PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}")
+include(ExportAndInstallLibrary)
 
 # EOF #
