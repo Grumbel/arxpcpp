@@ -18,7 +18,7 @@
 
 #include <stdexcept>
 
-#include "util/exec.hpp"
+#include <exsp/exec.hpp>
 
 namespace arxp {
 
@@ -40,7 +40,7 @@ SevenZip::get_filenames(std::filesystem::path const& zip_filename)
 {
   std::vector<std::string> lst;
 
-  Exec zip("7zr");
+  exsp::Exec zip("7zr");
   zip.arg("l").arg("-slt");
   zip.arg(zip_filename);
 
@@ -84,7 +84,7 @@ SevenZip::get_filenames(std::filesystem::path const& zip_filename)
 std::vector<uint8_t>
 SevenZip::get_file(std::filesystem::path const& zip_filename, const std::string& filename)
 {
-  Exec zip("7zr");
+  exsp::Exec zip("7zr");
   zip.arg("x").arg("-so");
   zip.arg(zip_filename);
   zip.arg(filename);
@@ -102,7 +102,7 @@ SevenZip::get_file(std::filesystem::path const& zip_filename, const std::string&
 void
 SevenZip::extract(std::filesystem::path const& archive, std::filesystem::path const& target_directory)
 {
-  Exec zip("7zr");
+  exsp::Exec zip("7zr");
   zip.arg("x").arg("-o" + target_directory.string());
   zip.arg(archive);
   if (zip.exec() != 0)

@@ -54,6 +54,11 @@ function(build_dependencies)
   if(NOT TARGET logmich::logmich)
     add_subdirectory(external/logmich/ EXCLUDE_FROM_ALL)
   endif()
+
+  find_package(exsp)
+  if(NOT TARGET exsp::exsp)
+    add_subdirectory(external/exspcpp/ EXCLUDE_FROM_ALL)
+  endif()
 endfunction()
 build_dependencies()
 
@@ -70,6 +75,7 @@ set_target_properties(arxp PROPERTIES PUBLIC_HEADER "${ARXP_HEADERS}")
 target_link_libraries(arxp PUBLIC
   PkgConfig::LIBARCHIVE
   logmich::logmich
+  exsp::exsp
   fmt::fmt)
 target_include_directories(arxp PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
