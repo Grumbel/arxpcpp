@@ -1,5 +1,5 @@
-# arch - Collection of string utilities
-# Copyright (C) 2020 Ingo Ruhnke <grumbel@gmail.com>
+# arxp - Archive Explorer for C++
+# Copyright (C) 2020-2022 Ingo Ruhnke <grumbel@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 cmake_minimum_required(VERSION 3.6)
-project(arch VERSION 0.0.0)
+project(arxp VERSION 0.0.0)
 
 set(TINYCMMC_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/external/cmake-modules/modules/")
 find_package(tinycmmc CONFIG)
@@ -25,8 +25,6 @@ list(APPEND CMAKE_MODULE_PATH ${TINYCMMC_MODULE_PATH})
 include(GNUInstallDirs)
 include(MaximumWarnings)
 include(ClangTidy)
-
-find_package(PkgConfig REQUIRED)
 
 function(build_dependencies)
   if(BUILD_TESTS)
@@ -47,60 +45,60 @@ function(build_dependencies)
 endfunction()
 build_dependencies()
 
-file(GLOB ARCH_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
+file(GLOB ARXP_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
   src/util/*.hpp
   src/archive/*.hpp)
 
-file(GLOB ARCH_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
+file(GLOB ARXP_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
   src/util/*.cpp
   src/archive/*.cpp)
 
-add_library(arch STATIC ${ARCH_SOURCES})
-set_target_properties(arch PROPERTIES PUBLIC_HEADER "${ARCH_HEADERS}")
-set_target_properties(arch PROPERTIES
+add_library(arxp STATIC ${ARXP_SOURCES})
+set_target_properties(arxp PROPERTIES PUBLIC_HEADER "${ARXP_HEADERS}")
+set_target_properties(arxp PROPERTIES
   CXX_STANDARD 20
   CXX_STANDARD_REQUIRED ON
   CXX_EXTENSIONS OFF)
-target_link_libraries(arch PUBLIC
+target_link_libraries(arxp PUBLIC
   logmich)
-target_include_directories(arch PUBLIC
+target_include_directories(arxp PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
 
 if(BUILD_TESTS)
   # build interactive tests
-  file(GLOB UITEST_ARCH_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} uitest/*_test.cpp)
-  add_executable(uitest_arch ${UITEST_ARCH_SOURCES})
-  set_target_properties(uitest_arch PROPERTIES
+  file(GLOB UITEST_ARXP_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} uitest/*_test.cpp)
+  add_executable(uitest_arxp ${UITEST_ARXP_SOURCES})
+  set_target_properties(uitest_arxp PROPERTIES
     CXX_STANDARD 20
     CXX_STANDARD_REQUIRED ON
     CXX_EXTENSIONS OFF)
-  target_compile_options(uitest_arch PRIVATE ${WARNINGS_CXX_FLAGS})
-  target_include_directories(uitest_arch PRIVATE src/)
-  target_link_libraries(uitest_arch
-    arch
+  target_compile_options(uitest_arxp PRIVATE ${WARNINGS_CXX_FLAGS})
+  target_include_directories(uitest_arxp PRIVATE src/)
+  target_link_libraries(uitest_arxp
+    arxp
     uitest
     uitest_main)
 
   find_package(GTest REQUIRED)
 
-  file(GLOB TEST_ARCH_SOURCES test/*_test.cpp)
-  add_executable(test_arch ${TEST_ARCH_SOURCES})
-  set_target_properties(test_arch PROPERTIES
+  file(GLOB TEST_ARXP_SOURCES test/*_test.cpp)
+  add_executable(test_arxp ${TEST_ARXP_SOURCES})
+  set_target_properties(test_arxp PROPERTIES
     CXX_STANDARD 20
     CXX_STANDARD_REQUIRED ON
     CXX_EXTENSIONS OFF)
-  target_compile_options(test_arch PRIVATE ${WARNINGS_CXX_FLAGS})
-  target_link_libraries(test_arch
-    arch
+  target_compile_options(test_arxp PRIVATE ${WARNINGS_CXX_FLAGS})
+  target_link_libraries(test_arxp
+    arxp
     GTest::GTest
     GTest::Main)
 
   enable_testing()
-  add_test(NAME test_arch
+  add_test(NAME test_arxp
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/test/"
-    COMMAND test_arch)
+    COMMAND test_arxp)
 endif()
 
 include(ExportAndInstallLibrary)

@@ -1,0 +1,8 @@
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/arch-config-version.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/arch-targets.cmake")
+
+find_dependency(logmich)
+
+# EOF #

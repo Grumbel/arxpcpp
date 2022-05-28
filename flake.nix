@@ -1,5 +1,5 @@
 {
-  description = "Archive Management for C++";
+  description = "Archive Explorer for C++";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
@@ -26,8 +26,8 @@
         pkgs = nixpkgs.legacyPackages.${system};
       in rec {
         packages = flake-utils.lib.flattenTree {
-          arch = pkgs.stdenv.mkDerivation {
-            pname = "arch";
+          arxp = pkgs.stdenv.mkDerivation {
+            pname = "arxp";
             version = "0.0.0";
             src = nixpkgs.lib.cleanSource ./.;
             nativeBuildInputs = [
@@ -36,13 +36,15 @@
             ];
             buildInputs = [
               tinycmmc.defaultPackage.${system}
-              logmich.defaultPackage.${system}
               uitest.defaultPackage.${system}
+            ];
+            propagatedBuildInputs = [
+              logmich.defaultPackage.${system}
 
               pkgs.gtest
             ];
            };
         };
-        defaultPackage = packages.arch;
+        defaultPackage = packages.arxp;
       });
 }
