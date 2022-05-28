@@ -31,12 +31,12 @@
 #include <algorithm>
 #include <logmich/log.hpp>
 
-#include "archive/archive_loader.hpp"
-#include "archive/archive_manager.hpp"
-#include "archive/rar.hpp"
-#include "archive/seven_zip.hpp"
-#include "archive/tar.hpp"
-#include "archive/zip.hpp"
+#include "archive_loader.hpp"
+#include "archive_manager.hpp"
+#include "rar.hpp"
+#include "seven_zip.hpp"
+#include "tar.hpp"
+#include "zip.hpp"
 #include "util/filesystem.hpp"
 
 namespace arxp {

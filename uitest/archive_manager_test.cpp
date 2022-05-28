@@ -19,8 +19,8 @@
 #include <iostream>
 #include <uitest/uitest.hpp>
 
-#include "archive/archive_manager.hpp"
-#include "archive/util.hpp"
+#include "archive_manager.hpp"
+#include "util.hpp"
 
 using namespace arxp;
 

@@ -14,17 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef HEADER_GALAPIX_ARCHIVE_RAR_ARCHIVE_LOADER_HPP
-#define HEADER_GALAPIX_ARCHIVE_RAR_ARCHIVE_LOADER_HPP
+#ifndef HEADER_GALAPIX_ARCHIVE_ZIP_ARCHIVE_LOADER_HPP
+#define HEADER_GALAPIX_ARCHIVE_ZIP_ARCHIVE_LOADER_HPP
 
-#include "archive/archive_loader.hpp"
+#include "archive_loader.hpp"
 
 namespace arxp {
 
-class RarArchiveLoader final : public ArchiveLoader
+class ZipArchiveLoader final : public ArchiveLoader
 {
 public:
-  RarArchiveLoader();
+  ZipArchiveLoader();
 
   std::vector<std::string> get_magics() const override;
   std::vector<std::string> get_extensions() const override;
@@ -34,11 +34,11 @@ public:
   void extract(std::filesystem::path const& archive, std::filesystem::path const& target_directory) const override;
   bool is_seekable(std::filesystem::path const& archive) const override { return true; }
 
-  std::string str() const override { return "rar"; }
+  std::string str() const override { return "zip"; }
 
 private:
-  RarArchiveLoader(const RarArchiveLoader&);
-  RarArchiveLoader& operator=(const RarArchiveLoader&);
+  ZipArchiveLoader(const ZipArchiveLoader&);
+  ZipArchiveLoader& operator=(const ZipArchiveLoader&);
 };
 
 #endif

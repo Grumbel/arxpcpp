@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "archive/util.hpp"
+#include "util.hpp"
 
 using namespace arxp;
 

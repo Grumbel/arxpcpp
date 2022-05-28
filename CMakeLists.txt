@@ -49,11 +49,11 @@ build_dependencies()
 
 file(GLOB ARXP_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
   src/util/*.hpp
-  src/archive/*.hpp)
+  src/*.hpp)
 
 file(GLOB ARXP_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
   src/util/*.cpp
-  src/archive/*.cpp)
+  src/*.cpp)
 
 add_library(arxp STATIC ${ARXP_SOURCES})
 set_target_properties(arxp PROPERTIES PUBLIC_HEADER "${ARXP_HEADERS}")

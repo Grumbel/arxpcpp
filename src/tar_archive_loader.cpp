@@ -14,47 +14,47 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "seven_zip_archive_loader.hpp"
+#include "tar_archive_loader.hpp"
 
-#include "archive/archive_manager.hpp"
-#include "archive/incremental_extraction.hpp"
-#include "archive/directory_extraction.hpp"
-#include "archive/seven_zip.hpp"
+#include "archive_manager.hpp"
+#include "directory_extraction.hpp"
+#include "incremental_extraction.hpp"
+#include "tar.hpp"
 
 namespace arxp {
 
-SevenZipArchiveLoader::SevenZipArchiveLoader()
+TarArchiveLoader::TarArchiveLoader()
 {
 }
 
 std::vector<std::string>
-SevenZipArchiveLoader::get_magics() const
+TarArchiveLoader::get_magics() const
 {
-  return { "7z\xBC\xAF\x27\x1C" };
+  return {};
 }
 
 std::vector<std::string>
-SevenZipArchiveLoader::get_extensions() const
+TarArchiveLoader::get_extensions() const
 {
-  return { "7z", "cb7" };
+  return { "tar", "tgz", "tar.gz", "tbz", "cbt", "tar.bz2", "taz", "tar.Z", "tlz", "tar.lz", "txz", "tar.xz" };
 }
 
 std::vector<std::string>
-SevenZipArchiveLoader::get_filenames(std::filesystem::path const& zip_filename) const
+TarArchiveLoader::get_filenames(std::filesystem::path const& zip_filename) const
 {
-  return SevenZip::get_filenames(zip_filename);
+  return Tar::get_filenames(zip_filename);
 }
 
 std::vector<uint8_t>
-SevenZipArchiveLoader::get_file(std::filesystem::path const& zip_filename, const std::string& filename) const
+TarArchiveLoader::get_file(std::filesystem::path const& zip_filename, const std::string& filename) const
 {
-  return SevenZip::get_file(zip_filename, filename);
+  return Tar::get_file(zip_filename, filename);
 }
 
 void
-SevenZipArchiveLoader::extract(std::filesystem::path const& archive, std::filesystem::path const& target_directory) const
+TarArchiveLoader::extract(std::filesystem::path const& archive, std::filesystem::path const& target_directory) const
 {
-  SevenZip::extract(archive, target_directory);
+  Tar::extract(archive, target_directory);
 }
 
 } // namespace arxp

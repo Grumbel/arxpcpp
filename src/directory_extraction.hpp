@@ -17,7 +17,7 @@
 #ifndef HEADER_GALAPIX_ARCHIVE_DIRECTORY_EXTRACTION_HPP
 #define HEADER_GALAPIX_ARCHIVE_DIRECTORY_EXTRACTION_HPP
 
-#include "archive/extraction.hpp"
+#include "extraction.hpp"
 
 #include <filesystem>
 

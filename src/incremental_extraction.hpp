@@ -19,9 +19,9 @@
 
 #include <filesystem>
 
-#include "archive/extraction.hpp"
-#include "archive/archive_loader.hpp"
-#include "archive/util.hpp"
+#include "extraction.hpp"
+#include "archive_loader.hpp"
+#include "util.hpp"
 #include "util/path.hpp"
 
 namespace arxp {

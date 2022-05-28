@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 
-#include "archive/archive_manager.hpp"
-#include "archive/extraction.hpp"
-#include "archive/util.hpp"
+#include "archive_manager.hpp"
+#include "extraction.hpp"
+#include "util.hpp"
 
 using namespace arxp;
 

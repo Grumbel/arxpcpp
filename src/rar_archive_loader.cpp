@@ -14,50 +14,46 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "zip_archive_loader.hpp"
+#include "rar_archive_loader.hpp"
 
-#include "archive/archive_manager.hpp"
-#include "archive/incremental_extraction.hpp"
-#include "archive/zip.hpp"
+#include "archive_manager.hpp"
+#include "incremental_extraction.hpp"
+#include "rar.hpp"
 
 namespace arxp {
 
-ZipArchiveLoader::ZipArchiveLoader()
+RarArchiveLoader::RarArchiveLoader()
 {
 }
 
 std::vector<std::string>
-ZipArchiveLoader::get_magics() const
+RarArchiveLoader::get_magics() const
 {
-  return {
-    "PK\x03\x04", // regular archive
-    "PK\x05\x06", // empty archive
-    "PK\x07\x08"  // spanned archive
-  };
+  return { std::string("Rar!\x1A\a\0", 7) };
 }
 
 std::vector<std::string>
-ZipArchiveLoader::get_extensions() const
+RarArchiveLoader::get_extensions() const
 {
-  return { "zip", "cbz" };
+  return { "rar", "cbr" };
 }
 
 std::vector<std::string>
-ZipArchiveLoader::get_filenames(std::filesystem::path const& zip_filename) const
+RarArchiveLoader::get_filenames(std::filesystem::path const& zip_filename) const
 {
-  return Zip::get_filenames(zip_filename);
+  return Rar::get_filenames(zip_filename);
 }
 
 std::vector<uint8_t>
-ZipArchiveLoader::get_file(std::filesystem::path const& zip_filename, const std::string& filename) const
+RarArchiveLoader::get_file(std::filesystem::path const& zip_filename, const std::string& filename) const
 {
-  return Zip::get_file(zip_filename, filename);
+  return Rar::get_file(zip_filename, filename);
 }
 
 void
-ZipArchiveLoader::extract(std::filesystem::path const& archive, std::filesystem::path const& target_directory) const
+RarArchiveLoader::extract(std::filesystem::path const& archive, std::filesystem::path const& target_directory) const
 {
-  Zip::extract(archive, target_directory);
+  Rar::extract(archive, target_directory);
 }
 
 } // namespace arxp

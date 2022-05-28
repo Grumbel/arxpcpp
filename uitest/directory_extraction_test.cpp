@@ -19,8 +19,8 @@
 #include <iostream>
 #include <uitest/uitest.hpp>
 
-#include "archive/zip.hpp"
-#include "archive/directory_extraction.hpp"
+#include "zip.hpp"
+#include "directory_extraction.hpp"
 
 using namespace arxp;
 

@@ -17,7 +17,7 @@
 #ifndef HEADER_GALAPIX_ARCHIVE_SEVEN_ZIP_ARCHIVE_LOADER_HPP
 #define HEADER_GALAPIX_ARCHIVE_SEVEN_ZIP_ARCHIVE_LOADER_HPP
 
-#include "archive/archive_loader.hpp"
+#include "archive_loader.hpp"
 
 namespace arxp {
 

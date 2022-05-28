@@ -14,17 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef HEADER_GALAPIX_ARCHIVE_TAR_ARCHIVE_LOADER_HPP
-#define HEADER_GALAPIX_ARCHIVE_TAR_ARCHIVE_LOADER_HPP
+#ifndef HEADER_GALAPIX_ARCHIVE_RAR_ARCHIVE_LOADER_HPP
+#define HEADER_GALAPIX_ARCHIVE_RAR_ARCHIVE_LOADER_HPP
 
-#include "archive/archive_loader.hpp"
+#include "archive_loader.hpp"
 
 namespace arxp {
 
-class TarArchiveLoader : public ArchiveLoader
+class RarArchiveLoader final : public ArchiveLoader
 {
 public:
-  TarArchiveLoader();
+  RarArchiveLoader();
 
   std::vector<std::string> get_magics() const override;
   std::vector<std::string> get_extensions() const override;
@@ -32,13 +32,13 @@ public:
   std::vector<std::string> get_filenames(std::filesystem::path const& zip_filename) const override;
   std::vector<uint8_t> get_file(std::filesystem::path const& zip_filename, const std::string& filename) const override;
   void extract(std::filesystem::path const& archive, std::filesystem::path const& target_directory) const override;
-  bool is_seekable(std::filesystem::path const& archive) const override { return false; }
+  bool is_seekable(std::filesystem::path const& archive) const override { return true; }
 
-  std::string str() const override { return "tar"; }
+  std::string str() const override { return "rar"; }
 
 private:
-  TarArchiveLoader(const TarArchiveLoader&);
-  TarArchiveLoader& operator=(const TarArchiveLoader&);
+  RarArchiveLoader(const RarArchiveLoader&);
+  RarArchiveLoader& operator=(const RarArchiveLoader&);
 };
 
 #endif

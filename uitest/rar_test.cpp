@@ -19,9 +19,9 @@
 #include <iostream>
 #include <uitest/uitest.hpp>
 
-#include "archive/rar.hpp"
-#include "archive/rar_header.hpp"
-#include "archive/util.hpp"
+#include "rar.hpp"
+#include "rar_header.hpp"
+#include "util.hpp"
 
 using namespace arxp;
 

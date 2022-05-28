@@ -14,23 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "archive/tar.hpp"
+#include "rar.hpp"
 
 #include <stdexcept>
+#include <iostream>
+#include <fstream>
 
 #include "util/exec.hpp"
 
 namespace arxp {
 
 std::vector<std::string>
-Tar::get_filenames(std::filesystem::path const& tar_filename)
+Rar::get_filenames(std::filesystem::path const& rar_filename)
 {
-  Exec tar("tar");
-  tar.arg("--list").arg("--file").arg(tar_filename);
-  if (tar.exec() == 0)
+  Exec rar("rar");
+  rar.arg("vb").arg("-p-").arg(rar_filename);
+  if (rar.exec() == 0)
   {
     std::vector<std::string> lst;
-    auto const& stdout_lst = tar.get_stdout();
+    auto const& stdout_lst = rar.get_stdout();
     auto start = stdout_lst.begin();
     for(auto i = stdout_lst.begin(); i != stdout_lst.end(); ++i)
     {
@@ -44,36 +46,33 @@ Tar::get_filenames(std::filesystem::path const& tar_filename)
   }
   else
   {
-    throw std::runtime_error("Tar::get_filenames(): " + std::string(tar.get_stderr().begin(), tar.get_stderr().end()));
+    throw std::runtime_error(std::string(rar.get_stderr().begin(), rar.get_stderr().end()));
   }
 }
 
 std::vector<uint8_t>
-Tar::get_file(std::filesystem::path const& tar_filename, const std::string& filename)
+Rar::get_file(std::filesystem::path const& rar_filename, const std::string& filename)
 {
-  Exec tar("tar");
-  tar.arg("--extract").arg("--to-stdout").arg("--file").arg(tar_filename).arg(filename);
-  if (tar.exec() == 0)
+  Exec rar("rar");
+  rar.arg("p").arg("-inul").arg("-p-").arg(rar_filename).arg(filename);
+  if (rar.exec() == 0)
   {
-    return tar.move_stdout();
+    return rar.move_stdout();
   }
   else
   {
-    throw std::runtime_error("Tar::get_file(): " + tar.str() + "\n" + std::string(tar.get_stderr().begin(), tar.get_stderr().end()));
+    throw std::runtime_error(rar.str() + "\n" + std::string(rar.get_stderr().begin(), rar.get_stderr().end()));
   }
 }
 
 void
-Tar::extract(std::filesystem::path const& tar_filename, std::filesystem::path const& target_directory)
+Rar::extract(std::filesystem::path const& rar_filename, std::filesystem::path const& target_directory)
 {
-  Exec tar("tar");
-  tar
-    .arg("--extract")
-    .arg("--directory").arg(target_directory)
-    .arg("--file").arg(tar_filename);
-  if (tar.exec() != 0)
+  Exec rar("rar");
+  rar.arg("x").arg("-inul").arg("-w" + target_directory.string()).arg(rar_filename.string());
+  if (rar.exec() != 0)
   {
-    throw std::runtime_error(tar.str() + "\n" + std::string(tar.get_stderr().begin(), tar.get_stderr().end()));
+    throw std::runtime_error(rar.str() + "\n" + std::string(rar.get_stderr().begin(), rar.get_stderr().end()));
   }
 }
 

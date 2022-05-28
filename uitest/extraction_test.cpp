@@ -19,9 +19,9 @@
 #include <iostream>
 #include <uitest/uitest.hpp>
 
-#include "archive/zip.hpp"
-#include "archive/incremental_extraction.hpp"
-#include "archive/zip_archive_loader.hpp"
+#include "zip.hpp"
+#include "incremental_extraction.hpp"
+#include "zip_archive_loader.hpp"
 
 using namespace arxp;
 

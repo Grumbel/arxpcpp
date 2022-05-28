@@ -19,8 +19,8 @@
 #include <iostream>
 #include <uitest/uitest.hpp>
 
-#include "archive/util.hpp"
-#include "archive/zip.hpp"
+#include "util.hpp"
+#include "zip.hpp"
 
 using namespace arxp;
 

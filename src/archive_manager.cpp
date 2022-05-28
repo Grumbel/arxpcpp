@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "archive/archive_manager.hpp"
+#include "archive_manager.hpp"
 
 #include <string.h>
 #include <stdexcept>
@@ -24,12 +24,12 @@
 #include "util/filesystem.hpp"
 #include "util/path.hpp"
 
-#include "archive/directory_extraction.hpp"
-#include "archive/incremental_extraction.hpp"
-#include "archive/rar_archive_loader.hpp"
-#include "archive/seven_zip_archive_loader.hpp"
-#include "archive/tar_archive_loader.hpp"
-#include "archive/zip_archive_loader.hpp"
+#include "directory_extraction.hpp"
+#include "incremental_extraction.hpp"
+#include "rar_archive_loader.hpp"
+#include "seven_zip_archive_loader.hpp"
+#include "tar_archive_loader.hpp"
+#include "zip_archive_loader.hpp"
 #include "util/filesystem.hpp"
 
 namespace arxp {

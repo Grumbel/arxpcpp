@@ -14,11 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "archive/directory_extraction.hpp"
+#include "directory_extraction.hpp"
 
 #include <logmich/log.hpp>
 
-#include "archive/util.hpp"
+#include "util.hpp"
 
 namespace arxp {
 
