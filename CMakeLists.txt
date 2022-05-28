@@ -26,6 +26,8 @@ include(GNUInstallDirs)
 include(MaximumWarnings)
 include(ClangTidy)
 
+find_package(fmt REQUIRED)
+
 function(build_dependencies)
   if(BUILD_TESTS)
     set(BUILD_TESTS OFF)
@@ -60,7 +62,8 @@ set_target_properties(arxp PROPERTIES
   CXX_STANDARD_REQUIRED ON
   CXX_EXTENSIONS OFF)
 target_link_libraries(arxp PUBLIC
-  logmich)
+  logmich::logmich
+  fmt::fmt)
 target_include_directories(arxp PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
