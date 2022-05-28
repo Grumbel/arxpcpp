@@ -21,6 +21,8 @@
 
 #include "util/exec.hpp"
 
+namespace arxp {
+
 namespace {
 
 std::string zip_error_to_string(int err)
@@ -233,5 +235,7 @@ Zip::extract(std::filesystem::path const& zip_filename, std::filesystem::path co
     throw std::runtime_error(out.str());
   }
 }
+
+} // namespace arxp
 
 /* EOF */

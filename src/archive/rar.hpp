@@ -21,6 +21,8 @@
 #include <string>
 #include <vector>
 
+namespace arxp {
+
 class Rar
 {
 public:
@@ -30,5 +32,7 @@ public:
 };
 
 #endif
+
+} // namespace arxp
 
 /* EOF */

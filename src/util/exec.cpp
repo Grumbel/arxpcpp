@@ -28,6 +28,8 @@
 #include <unistd.h>
 #include <logmich/log.hpp>
 
+namespace arxp {
+
 Exec::Exec(const std::string& program, bool absolute_path) :
   m_program(program),
   m_absolute_path(absolute_path),
@@ -284,5 +286,7 @@ Exec::str() const
 
   return out.str();
 }
+
+} // namespace arxp
 
 /* EOF */

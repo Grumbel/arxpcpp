@@ -20,6 +20,8 @@
 
 #include "util/exec.hpp"
 
+namespace arxp {
+
 std::vector<std::string>
 Tar::get_filenames(std::filesystem::path const& tar_filename)
 {
@@ -74,5 +76,7 @@ Tar::extract(std::filesystem::path const& tar_filename, std::filesystem::path co
     throw std::runtime_error(tar.str() + "\n" + std::string(tar.get_stderr().begin(), tar.get_stderr().end()));
   }
 }
+
+} // namespace arxp
 
 /* EOF */

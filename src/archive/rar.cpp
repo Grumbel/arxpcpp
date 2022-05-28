@@ -22,6 +22,8 @@
 
 #include "util/exec.hpp"
 
+namespace arxp {
+
 std::vector<std::string>
 Rar::get_filenames(std::filesystem::path const& rar_filename)
 {
@@ -73,5 +75,7 @@ Rar::extract(std::filesystem::path const& rar_filename, std::filesystem::path co
     throw std::runtime_error(rar.str() + "\n" + std::string(rar.get_stderr().begin(), rar.get_stderr().end()));
   }
 }
+
+} // namespace arxp
 
 /* EOF */

@@ -4,6 +4,8 @@
 #include "archive/extraction.hpp"
 #include "archive/util.hpp"
 
+using namespace arxp;
+
 class ArchiveManagerTest : public ::testing::TestWithParam<std::string>
 {
 public:

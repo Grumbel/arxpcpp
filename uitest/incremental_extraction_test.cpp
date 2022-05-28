@@ -23,6 +23,8 @@
 #include "archive/incremental_extraction.hpp"
 #include "archive/zip_archive_loader.hpp"
 
+using namespace arxp;
+
 UITEST(IncrementalExtraction, test, "ARCHIVE")
 {
   ZipArchiveLoader loader;

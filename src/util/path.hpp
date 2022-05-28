@@ -21,7 +21,11 @@
 
 #include <filesystem>
 
+namespace arxp {
+
 std::filesystem::path unique_path();
+
+} // namespace arxp
 
 #endif
 

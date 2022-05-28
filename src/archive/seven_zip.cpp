@@ -20,6 +20,8 @@
 
 #include "util/exec.hpp"
 
+namespace arxp {
+
 namespace {
 
 bool has_prefix(const std::string& lhs, const std::string& rhs)
@@ -108,5 +110,7 @@ SevenZip::extract(std::filesystem::path const& archive, std::filesystem::path co
     throw std::runtime_error(zip.str() + "\n" + std::string(zip.get_stderr().begin(), zip.get_stderr().end()));
   }
 }
+
+} // namespace arxp
 
 /* EOF */

@@ -21,6 +21,8 @@
 #include <string>
 #include <vector>
 
+namespace arxp {
+
 class Tar
 {
 public:
@@ -33,5 +35,7 @@ public:
 };
 
 #endif
+
+} // namespace arxp
 
 /* EOF */

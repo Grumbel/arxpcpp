@@ -24,6 +24,8 @@
 #include <string>
 #include <vector>
 
+namespace arxp {
+
 class ArchiveLoader;
 class Extraction;
 
@@ -74,5 +76,7 @@ private:
 };
 
 #endif
+
+} // namespace arxp
 
 /* EOF */

@@ -24,6 +24,8 @@
 #include "archive/util.hpp"
 #include "util/path.hpp"
 
+namespace arxp {
+
 class IncrementalExtraction : public Extraction
 {
 private:
@@ -65,5 +67,7 @@ private:
 };
 
 #endif
+
+} // namespace arxp
 
 /* EOF */

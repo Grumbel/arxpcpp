@@ -20,6 +20,8 @@
 #include "archive/incremental_extraction.hpp"
 #include "archive/zip.hpp"
 
+namespace arxp {
+
 ZipArchiveLoader::ZipArchiveLoader()
 {
 }
@@ -57,5 +59,7 @@ ZipArchiveLoader::extract(std::filesystem::path const& archive, std::filesystem:
 {
   Zip::extract(archive, target_directory);
 }
+
+} // namespace arxp
 
 /* EOF */

@@ -23,9 +23,13 @@
 #include <span>
 #include <vector>
 
+namespace arxp {
+
 void write_file(std::filesystem::path const& filename, std::span<uint8_t const> data);
 std::vector<uint8_t> read_file(std::filesystem::path const& filename);
 
 #endif
+
+} // namespace arxp
 
 /* EOF */

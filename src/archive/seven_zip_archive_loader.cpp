@@ -21,6 +21,8 @@
 #include "archive/directory_extraction.hpp"
 #include "archive/seven_zip.hpp"
 
+namespace arxp {
+
 SevenZipArchiveLoader::SevenZipArchiveLoader()
 {
 }
@@ -54,5 +56,7 @@ SevenZipArchiveLoader::extract(std::filesystem::path const& archive, std::filesy
 {
   SevenZip::extract(archive, target_directory);
 }
+
+} // namespace arxp
 
 /* EOF */

@@ -22,6 +22,8 @@
 #include "archive/util.hpp"
 #include "archive/zip.hpp"
 
+using namespace arxp;
+
 UITEST(ZipTest, list, "ZIPFILE",
        "List files in a .zip")
 {

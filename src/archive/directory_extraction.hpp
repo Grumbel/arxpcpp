@@ -21,6 +21,8 @@
 
 #include <filesystem>
 
+namespace arxp {
+
 class DirectoryExtraction final : public Extraction
 {
 public:
@@ -43,5 +45,7 @@ private:
 };
 
 #endif
+
+} // namespace arxp
 
 /* EOF */

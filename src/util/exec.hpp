@@ -22,6 +22,8 @@
 #include <string>
 #include <vector>
 
+namespace arxp {
+
 /** The Exec class allows to call external applications in a
     conventient vasion. */
 class Exec
@@ -101,5 +103,7 @@ private:
 };
 
 #endif
+
+} // namespace arxp
 
 /* EOF */

@@ -19,6 +19,8 @@
 
 #include <filesystem>
 
+namespace arxp {
+
 class Filesystem
 {
 public:
@@ -30,6 +32,8 @@ public:
   /** read the first 512 bytes of the archive for magic detection */
   static std::string  get_magic(const std::string& filename);
 };
+
+} // namespace arxp
 
 #endif
 

@@ -24,6 +24,8 @@
 
 #include "util/input_stream.hpp"
 
+namespace arxp {
+
 RarHeader
 RarHeader::from_file(std::string const& rar_filename)
 {
@@ -107,5 +109,7 @@ RarHeader::has_recovery() const
 {
   return m_head_flags & 0x40;
 }
+
+} // namespace arxp
 
 /* EOF */

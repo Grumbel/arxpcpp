@@ -22,6 +22,8 @@
 #include "archive/archive_manager.hpp"
 #include "archive/util.hpp"
 
+using namespace arxp;
+
 UITEST(ArchiveManager, is_archive, "ARCHIVENAME...",
        "Check if the given filename is an archive or not")
 {

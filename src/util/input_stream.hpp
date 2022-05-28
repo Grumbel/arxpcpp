@@ -19,6 +19,8 @@
 
 #include <string>
 
+namespace arxp {
+
 class InputStream
 {
 public:
@@ -60,5 +62,7 @@ private:
 };
 
 #endif
+
+} // namespace arxp
 
 /* EOF */

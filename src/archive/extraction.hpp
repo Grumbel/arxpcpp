@@ -20,6 +20,8 @@
 #include <memory>
 #include <vector>
 
+namespace arxp {
+
 class Extraction
 {
 public:
@@ -37,6 +39,8 @@ private:
 };
 
 typedef std::shared_ptr<Extraction> ExtractionPtr;
+
+} // namespace arxp
 
 #endif
 

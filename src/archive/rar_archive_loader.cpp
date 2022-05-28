@@ -20,6 +20,8 @@
 #include "archive/incremental_extraction.hpp"
 #include "archive/rar.hpp"
 
+namespace arxp {
+
 RarArchiveLoader::RarArchiveLoader()
 {
 }
@@ -53,5 +55,7 @@ RarArchiveLoader::extract(std::filesystem::path const& archive, std::filesystem:
 {
   Rar::extract(archive, target_directory);
 }
+
+} // namespace arxp
 
 /* EOF */

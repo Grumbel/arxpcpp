@@ -21,6 +21,8 @@
 #include <string>
 #include <vector>
 
+namespace arxp {
+
 /** Support for 7-Zip archives */
 class SevenZip
 {
@@ -41,5 +43,7 @@ public:
 };
 
 #endif
+
+} // namespace arxp
 
 /* EOF */

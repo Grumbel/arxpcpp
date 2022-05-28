@@ -22,6 +22,8 @@
 #include "archive/seven_zip.hpp"
 #include "archive/util.hpp"
 
+using namespace arxp;
+
 UITEST(SevenZip, list, "FILENAME")
 {
   const std::vector<std::string>& files = SevenZip::get_filenames(args[0]);

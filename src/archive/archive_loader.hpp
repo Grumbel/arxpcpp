@@ -22,6 +22,8 @@
 #include <string>
 #include <vector>
 
+namespace arxp {
+
 class ArchiveManager;
 class Extraction;
 
@@ -45,6 +47,8 @@ private:
   ArchiveLoader(const ArchiveLoader&) = delete;
   ArchiveLoader& operator=(const ArchiveLoader&) = delete;
 };
+
+} // namespace arxp
 
 #endif
 

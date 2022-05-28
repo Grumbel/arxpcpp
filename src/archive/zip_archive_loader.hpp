@@ -19,6 +19,8 @@
 
 #include "archive/archive_loader.hpp"
 
+namespace arxp {
+
 class ZipArchiveLoader final : public ArchiveLoader
 {
 public:
@@ -40,5 +42,7 @@ private:
 };
 
 #endif
+
+} // namespace arxp
 
 /* EOF */

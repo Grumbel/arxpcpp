@@ -23,6 +23,8 @@
 #include "archive/rar_header.hpp"
 #include "archive/util.hpp"
 
+using namespace arxp;
+
 UITEST_S(Rar, info, "ARCHIVE")
 {
   auto header = RarHeader::from_file(arg);

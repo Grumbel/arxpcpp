@@ -21,6 +21,8 @@
 #include "archive/incremental_extraction.hpp"
 #include "archive/tar.hpp"
 
+namespace arxp {
+
 TarArchiveLoader::TarArchiveLoader()
 {
 }
@@ -54,5 +56,7 @@ TarArchiveLoader::extract(std::filesystem::path const& archive, std::filesystem:
 {
   Tar::extract(archive, target_directory);
 }
+
+} // namespace arxp
 
 /* EOF */

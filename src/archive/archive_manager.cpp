@@ -32,6 +32,8 @@
 #include "archive/zip_archive_loader.hpp"
 #include "util/filesystem.hpp"
 
+namespace arxp {
+
 ArchiveManager::ArchiveManager() :
   ArchiveManager(std::filesystem::temp_directory_path().string())
 {
@@ -200,5 +202,7 @@ ArchiveManager::create_extraction_directory() const
   std::filesystem::create_directory(directory);
   return directory.string();
 }
+
+} // namespace arxp
 
 /* EOF */

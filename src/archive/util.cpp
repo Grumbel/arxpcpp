@@ -25,6 +25,8 @@
 #include <fmt/format.h>
 #include <fmt/ostream.h>
 
+namespace arxp {
+
 void write_file(std::filesystem::path const& filename, std::span<uint8_t const> data)
 {
   std::ofstream out(filename, std::ifstream::binary);
@@ -56,5 +58,7 @@ std::vector<uint8_t> read_file(std::filesystem::path const& filename)
 
   return data;
 }
+
+} // namespace arxp
 
 /* EOF */

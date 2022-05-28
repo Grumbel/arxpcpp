@@ -22,6 +22,8 @@
 #include "archive/zip.hpp"
 #include "archive/directory_extraction.hpp"
 
+using namespace arxp;
+
 UITEST(DirectoryExtraction, test, "FILE...",
        "List content of directory")
 {

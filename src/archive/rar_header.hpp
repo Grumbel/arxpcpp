@@ -20,6 +20,8 @@
 #include <string>
 #include <stdint.h>
 
+namespace arxp {
+
 class RarHeader
 {
 public:
@@ -44,5 +46,7 @@ private:
 };
 
 #endif
+
+} // namespace arxp
 
 /* EOF */

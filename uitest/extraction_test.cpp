@@ -23,6 +23,8 @@
 #include "archive/incremental_extraction.hpp"
 #include "archive/zip_archive_loader.hpp"
 
+using namespace arxp;
+
 UITEST(Extraction, test, "FILE...")
 {
   for(const auto& arg : rest)

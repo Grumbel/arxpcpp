@@ -16,6 +16,8 @@
 
 #include "extraction.hpp"
 
+namespace arxp {
+
 Extraction::Extraction()
 {
 }
@@ -24,5 +26,7 @@ Extraction::~Extraction()
 {
   // delete temporary directory
 }
+
+} // namespace arxp
 
 /* EOF */

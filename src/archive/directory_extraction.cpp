@@ -20,6 +20,8 @@
 
 #include "archive/util.hpp"
 
+namespace arxp {
+
 namespace {
 
 void
@@ -83,5 +85,7 @@ DirectoryExtraction::get_file_as_path(const std::string& filename) const
 {
   return (m_path / filename).string();
 }
+
+} // namespace arxp
 
 /* EOF */

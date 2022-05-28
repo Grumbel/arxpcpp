@@ -4,6 +4,8 @@
 
 #include "util/path.hpp"
 
+using namespace arxp;
+
 TEST(PathTest, unique_path)
 {
   std::set<std::filesystem::path> collections;

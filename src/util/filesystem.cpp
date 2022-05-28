@@ -39,6 +39,8 @@
 #include "archive/zip.hpp"
 #include "util/filesystem.hpp"
 
+namespace arxp {
+
 std::filesystem::path
 Filesystem::find_exe(const std::string& name)
 {
@@ -129,5 +131,7 @@ Filesystem::get_magic(const std::string& filename)
     }
   }
 }
+
+} // namespace arxp
 
 /* EOF */

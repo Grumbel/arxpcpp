@@ -2,6 +2,8 @@
 
 #include "archive/util.hpp"
 
+using namespace arxp;
+
 std::string const test_txt_str =
   "This program is free software: you can redistribute it and/or modify\n"
   "it under the terms of the GNU General Public License as published\n"

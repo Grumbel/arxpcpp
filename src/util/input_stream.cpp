@@ -25,6 +25,8 @@
 #include <system_error>
 #include <unistd.h>
 
+namespace arxp {
+
 InputStream
 InputStream::from_file(std::string const& filename)
 {
@@ -308,5 +310,7 @@ InputStream::readUBE64()
 {
   return swapUBE64(readULE64());
 }
+
+} // namespace arxp
 
 /* EOF */

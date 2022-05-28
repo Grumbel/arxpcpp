@@ -21,6 +21,8 @@
 #include <iostream>
 #include <uitest/uitest.hpp>
 
+using namespace arxp;
+
 UITEST(Tar, extract, "ARCHIVE TARGETDIR")
 {
   Tar::extract(args[0], args[1]);
