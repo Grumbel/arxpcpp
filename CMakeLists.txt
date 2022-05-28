@@ -66,7 +66,7 @@ target_link_libraries(arxp PUBLIC
   fmt::fmt)
 target_include_directories(arxp PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/arxp>
   $<INSTALL_INTERFACE:include>)
 
 if(BUILD_TESTS)
