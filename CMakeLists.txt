@@ -22,9 +22,16 @@ find_package(tinycmmc CONFIG)
 message(STATUS "tinycmmc module path: ${TINYCMMC_MODULE_PATH}")
 list(APPEND CMAKE_MODULE_PATH ${TINYCMMC_MODULE_PATH})
 
+option(BUILD_TESTS "Build test cases" OFF)
+option(BUILD_EXTRA "Build extra stuff" OFF)
+
 include(GNUInstallDirs)
 include(MaximumWarnings)
 include(ClangTidy)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CXX_EXTENSIONS OFF)
 
 find_package(fmt REQUIRED)
 
@@ -57,26 +64,33 @@ file(GLOB ARXP_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
 
 add_library(arxp STATIC ${ARXP_SOURCES})
 set_target_properties(arxp PROPERTIES PUBLIC_HEADER "${ARXP_HEADERS}")
-set_target_properties(arxp PROPERTIES
-  CXX_STANDARD 20
-  CXX_STANDARD_REQUIRED ON
-  CXX_EXTENSIONS OFF)
 target_link_libraries(arxp PUBLIC
   logmich::logmich
   fmt::fmt)
 target_include_directories(arxp PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/arxp>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
+
+if(BUILD_EXTRA)
+  file(GLOB ARXP_EXTRA_SOURCES_CXX RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
+    extra/*.cpp)
+  foreach(EXTRA_SOURCE ${ARXP_EXTRA_SOURCES_CXX})
+    string(REGEX REPLACE ".*/\([^/]*\).cpp" "\\1" EXTRA_EXE ${EXTRA_SOURCE})
+    set(TARGET "${EXTRA_EXE}_exe")
+    add_executable(${TARGET} ${EXTRA_SOURCE})
+    set_target_properties(${TARGET} PROPERTIES
+      OUTPUT_NAME "${EXTRA_EXE}")
+    target_compile_options(${TARGET} PRIVATE ${WARNINGS_CXX_FLAGS})
+    target_link_libraries(${TARGET} fmt::fmt arxp)
+  endforeach(EXTRA_SOURCE)
+endif()
 
 if(BUILD_TESTS)
   # build interactive tests
   file(GLOB UITEST_ARXP_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} uitest/*_test.cpp)
   add_executable(uitest_arxp ${UITEST_ARXP_SOURCES})
-  set_target_properties(uitest_arxp PROPERTIES
-    CXX_STANDARD 20
-    CXX_STANDARD_REQUIRED ON
-    CXX_EXTENSIONS OFF)
   target_compile_options(uitest_arxp PRIVATE ${WARNINGS_CXX_FLAGS})
   target_include_directories(uitest_arxp PRIVATE src/)
   target_link_libraries(uitest_arxp
@@ -88,10 +102,6 @@ if(BUILD_TESTS)
 
   file(GLOB TEST_ARXP_SOURCES test/*_test.cpp)
   add_executable(test_arxp ${TEST_ARXP_SOURCES})
-  set_target_properties(test_arxp PROPERTIES
-    CXX_STANDARD 20
-    CXX_STANDARD_REQUIRED ON
-    CXX_EXTENSIONS OFF)
   target_compile_options(test_arxp PRIVATE ${WARNINGS_CXX_FLAGS})
   target_link_libraries(test_arxp
     arxp
