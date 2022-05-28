@@ -18,16 +18,21 @@
     uitest.inputs.nixpkgs.follows = "nixpkgs";
     uitest.inputs.flake-utils.follows = "flake-utils";
     uitest.inputs.tinycmmc.follows = "tinycmmc";
+
+    exspcpp.url = "gitlab:grumbel/exspcpp";
+    exspcpp.inputs.nixpkgs.follows = "nixpkgs";
+    exspcpp.inputs.flake-utils.follows = "flake-utils";
+    exspcpp.inputs.tinycmmc.follows = "tinycmmc";
   };
 
-  outputs = { self, nixpkgs, flake-utils, tinycmmc, logmich, uitest }:
+  outputs = { self, nixpkgs, flake-utils, tinycmmc, logmich, uitest, exspcpp }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
       in rec {
         packages = flake-utils.lib.flattenTree {
-          arxp = pkgs.stdenv.mkDerivation {
-            pname = "arxp";
+          arxpcpp = pkgs.stdenv.mkDerivation {
+            pname = "arxpcpp";
             version = "0.0.0";
             src = nixpkgs.lib.cleanSource ./.;
             nativeBuildInputs = [
@@ -40,12 +45,13 @@
             ];
             propagatedBuildInputs = [
               logmich.defaultPackage.${system}
+              exspcpp.defaultPackage.${system}
 
               pkgs.libarchive
               pkgs.gtest
             ];
            };
         };
-        defaultPackage = packages.arxp;
+        defaultPackage = packages.arxpcpp;
       });
 }
