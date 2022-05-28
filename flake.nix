@@ -41,6 +41,7 @@
             propagatedBuildInputs = [
               logmich.defaultPackage.${system}
 
+              pkgs.libarchive
               pkgs.gtest
             ];
            };

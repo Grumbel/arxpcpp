@@ -35,6 +35,9 @@ set(CXX_EXTENSIONS OFF)
 
 find_package(fmt REQUIRED)
 
+find_package(PkgConfig REQUIRED)
+pkg_search_module(LIBARCHIVE REQUIRED libarchive IMPORTED_TARGET)
+
 function(build_dependencies)
   if(BUILD_TESTS)
     set(BUILD_TESTS OFF)
@@ -65,6 +68,7 @@ file(GLOB ARXP_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
 add_library(arxp STATIC ${ARXP_SOURCES})
 set_target_properties(arxp PROPERTIES PUBLIC_HEADER "${ARXP_HEADERS}")
 target_link_libraries(arxp PUBLIC
+  PkgConfig::LIBARCHIVE
   logmich::logmich
   fmt::fmt)
 target_include_directories(arxp PUBLIC
