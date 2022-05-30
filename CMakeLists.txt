@@ -62,16 +62,11 @@ function(build_dependencies)
 endfunction()
 build_dependencies()
 
-file(GLOB ARXP_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-  src/util/*.hpp
-  src/*.hpp)
-
 file(GLOB ARXP_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
   src/util/*.cpp
   src/*.cpp)
 
 add_library(arxp STATIC ${ARXP_SOURCES})
-set_target_properties(arxp PROPERTIES PUBLIC_HEADER "${ARXP_HEADERS}")
 target_link_libraries(arxp PUBLIC
   PkgConfig::LIBARCHIVE
   logmich::logmich
@@ -123,6 +118,10 @@ if(BUILD_TESTS)
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/test/"
     COMMAND test_arxp)
 endif()
+
+install(DIRECTORY include/
+  DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+  FILES_MATCHING PATTERN "*.hpp")
 
 include(ExportAndInstallLibrary)
 
