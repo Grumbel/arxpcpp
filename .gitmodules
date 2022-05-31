@@ -1,9 +1,12 @@
 [submodule "external/logmich"]
 	path = external/logmich
-	url = https://gitlab.com/logmich/logmich.git
+	url = https://github.com/logmich/logmich.git
 [submodule "external/uitest"]
 	path = external/uitest
-	url = https://gitlab.com/grumbel/uitest.git
+	url = https://github.com/grumbel/uitest.git
 [submodule "external/tinycmmc"]
 	path = external/tinycmmc
-	url = https://gitlab.com/grumbel/cmake-modules.git
+	url = https://github.com/grumbel/tinycmmc.git
+[submodule "external/exspcpp"]
+	path = external/exspcpp
+	url = https://github.com/grumbel/exspcpp.git
