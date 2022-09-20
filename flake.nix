@@ -29,8 +29,8 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-      in rec {
-        packages = flake-utils.lib.flattenTree {
+      in {
+        packages = rec {
           arxpcpp = pkgs.stdenv.mkDerivation {
             pname = "arxpcpp";
             version = "0.0.0";
@@ -40,18 +40,19 @@
               pkgs.pkg-config
             ];
             buildInputs = [
-              tinycmmc.defaultPackage.${system}
-              uitest.defaultPackage.${system}
+              tinycmmc.packages.${system}.default
+              uitest.packages.${system}.default
             ];
             propagatedBuildInputs = [
-              logmich.defaultPackage.${system}
-              exspcpp.defaultPackage.${system}
+              logmich.packages.${system}.default
+              exspcpp.packages.${system}.default
 
               pkgs.libarchive
               pkgs.gtest
             ];
-           };
+          };
+          default = arxpcpp;
         };
-        defaultPackage = packages.arxpcpp;
-      });
+      }
+    );
 }
