@@ -2,7 +2,7 @@
   description = "Archive Explorer for C++";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     flake-utils.url = "github:numtide/flake-utils";
 
     tinycmmc.url = "github:grumbel/tinycmmc";
@@ -11,7 +11,6 @@
 
     logmich.url = "github:logmich/logmich";
     logmich.inputs.nixpkgs.follows = "nixpkgs";
-    logmich.inputs.flake-utils.follows = "flake-utils";
     logmich.inputs.tinycmmc.follows = "tinycmmc";
 
     uitest.url = "github:grumbel/uitest";
@@ -31,7 +30,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
       in {
         packages = rec {
-          arxpcpp = pkgs.stdenv.mkDerivation {
+          arxpcpp = pkgs.gcc12Stdenv.mkDerivation {
             pname = "arxpcpp";
             version = "0.0.0";
             src = nixpkgs.lib.cleanSource ./.;
