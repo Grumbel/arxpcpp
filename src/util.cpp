@@ -18,6 +18,7 @@
 
 #include "util.hpp"
 
+#include <algorithm>
 #include <errno.h>
 #include <fstream>
 #include <stdexcept>

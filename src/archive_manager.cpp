@@ -16,9 +16,11 @@
 
 #include "archive_manager.hpp"
 
-#include <string.h>
-#include <stdexcept>
+#include <algorithm>
 #include <filesystem>
+#include <stdexcept>
+#include <string.h>
+
 #include <logmich/log.hpp>
 
 #include "util/filesystem.hpp"
