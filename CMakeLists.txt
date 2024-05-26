@@ -17,10 +17,7 @@
 cmake_minimum_required(VERSION 3.6)
 project(arxp VERSION 0.0.0)
 
-set(TINYCMMC_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/external/cmake-modules/modules/")
-find_package(tinycmmc CONFIG)
-message(STATUS "tinycmmc module path: ${TINYCMMC_MODULE_PATH}")
-list(APPEND CMAKE_MODULE_PATH ${TINYCMMC_MODULE_PATH})
+include(mk/cmake/TinyCMMC.cmake)
 
 option(BUILD_TESTS "Build test cases" OFF)
 option(BUILD_EXTRA "Build extra stuff" OFF)
@@ -87,7 +84,7 @@ if(BUILD_EXTRA)
     add_executable(${TARGET} ${EXTRA_SOURCE})
     set_target_properties(${TARGET} PROPERTIES
       OUTPUT_NAME "${EXTRA_EXE}")
-    target_compile_options(${TARGET} PRIVATE ${WARNINGS_CXX_FLAGS})
+    target_compile_options(${TARGET} PRIVATE ${TINYCMMC_WARNINGS_CXX_FLAGS})
     target_link_libraries(${TARGET} fmt::fmt arxp)
   endforeach(EXTRA_SOURCE)
 endif()
@@ -123,6 +120,6 @@ install(DIRECTORY include/
   DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
   FILES_MATCHING PATTERN "*.hpp")
 
-include(ExportAndInstallLibrary)
+tinycmmc_export_and_install_library(arxp)
 
 # EOF #
