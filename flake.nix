@@ -30,7 +30,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
       in {
         packages = rec {
-          arxpcpp = pkgs.gcc12Stdenv.mkDerivation {
+          arxpcpp = pkgs.stdenv.mkDerivation {
             pname = "arxpcpp";
             version = "0.0.0";
             src = nixpkgs.lib.cleanSource ./.;
