@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.10)
 project(arxp VERSION 0.0.0)
 
 include(mk/cmake/TinyCMMC.cmake)
@@ -40,7 +40,7 @@ function(build_dependencies)
     set(BUILD_TESTS OFF)
 
     find_package(uitest)
-    if(NOT TARGET uitest)
+    if(NOT TARGET uitest::uitest)
       add_subdirectory(external/uitest/ EXCLUDE_FROM_ALL)
     endif()
   endif()

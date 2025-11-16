@@ -18,6 +18,7 @@
 
 #include <assert.h>
 #include <errno.h>
+#include <stdint.h>
 #include <fcntl.h>
 #include <sstream>
 #include <sys/stat.h>

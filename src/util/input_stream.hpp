@@ -18,6 +18,7 @@
 #define HEADER_GALAPIX_UTIL_INPUT_STREAM_HPP
 
 #include <string>
+#include <stdint.h>
 
 namespace arxp {
 
