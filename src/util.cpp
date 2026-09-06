@@ -23,9 +23,6 @@
 #include <fstream>
 #include <stdexcept>
 
-#include <fmt/format.h>
-#include <fmt/ostream.h>
-
 namespace arxp {
 
 void write_file(std::filesystem::path const& filename, std::span<uint8_t const> data)

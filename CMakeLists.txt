@@ -30,8 +30,6 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CXX_EXTENSIONS OFF)
 
-find_package(fmt REQUIRED)
-
 find_package(PkgConfig REQUIRED)
 pkg_search_module(LIBARCHIVE REQUIRED libarchive IMPORTED_TARGET)
 
@@ -67,8 +65,7 @@ add_library(arxp STATIC ${ARXP_SOURCES})
 target_link_libraries(arxp PUBLIC
   PkgConfig::LIBARCHIVE
   logmich::logmich
-  exsp::exsp
-  fmt::fmt)
+  exsp::exsp)
 target_include_directories(arxp PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/arxp>
@@ -85,7 +82,7 @@ if(BUILD_EXTRA)
     set_target_properties(${TARGET} PROPERTIES
       OUTPUT_NAME "${EXTRA_EXE}")
     target_compile_options(${TARGET} PRIVATE ${TINYCMMC_WARNINGS_CXX_FLAGS})
-    target_link_libraries(${TARGET} fmt::fmt arxp)
+    target_link_libraries(${TARGET} arxp)
   endforeach(EXTRA_SOURCE)
 endif()
 
