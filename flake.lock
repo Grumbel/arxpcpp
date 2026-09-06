@@ -13,11 +13,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1763254272,
-        "narHash": "sha256-HFsvvP/Rbo/5nlroPwu2489bi9EQVRYRy+0DyLk5cTk=",
+        "lastModified": 1788723408,
+        "narHash": "sha256-szf5FzlPUYj21Fm5yhHUV87D0jsQXeAlIqIM4gjZp80=",
         "owner": "grumbel",
         "repo": "exspcpp",
-        "rev": "a12086d5d6dbdcbfaa6c134d56ba53ecd7f7c687",
+        "rev": "a133e27b6fa0331b91b77ba14c02961ba28fb95b",
         "type": "github"
       },
       "original": {
@@ -44,21 +44,37 @@
         "type": "github"
       }
     },
+    "flake-utils_2": {
+      "inputs": {
+        "systems": "systems_2"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "logmich": {
       "inputs": {
+        "flake-utils": "flake-utils_2",
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "tinycmmc": [
-          "tinycmmc"
         ]
       },
       "locked": {
-        "lastModified": 1753120025,
-        "narHash": "sha256-e8k/ZzPAfLgNF30wmXHDX5ovK/msTH6sgzxWKzZhtOY=",
+        "lastModified": 1787239001,
+        "narHash": "sha256-p3BHIMo/2SaN5eyfhn8XUysO5+DY0F98wAK8WYMDceY=",
         "owner": "logmich",
         "repo": "logmich",
-        "rev": "c73c7b7d6cd050d1bcc42d522ce80a2eb86da5c8",
+        "rev": "8f8774b30c70b820e079484df638fd2667615a47",
         "type": "github"
       },
       "original": {
@@ -69,11 +85,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1762977756,
-        "narHash": "sha256-4PqRErxfe+2toFJFgcRKZ0UI9NSIOJa+7RXVtBhy4KE=",
+        "lastModified": 1788614874,
+        "narHash": "sha256-7QYjT2vHLuX9Z1pdxHXDKCbh1CR3D/2rywB9Tx0MPRg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c5ae371f1a6a7fd27823bc500d9390b38c05fa55",
+        "rev": "c043004d1c6985732bcc1cbc5a9c9aecbbb4e0f0",
         "type": "github"
       },
       "original": {
@@ -108,6 +124,21 @@
         "type": "github"
       }
     },
+    "systems_2": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
     "tinycmmc": {
       "inputs": {
         "flake-utils": [
@@ -118,11 +149,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1762385311,
-        "narHash": "sha256-B3XPPjn9S1YpIZmHyBBbXwaP0JVKBhYvCmNt6oauj+M=",
+        "lastModified": 1787260639,
+        "narHash": "sha256-fKg/K22LM5QVIUn6E7DC3c1g9B9vnXNZK6ZZJAR0+4Q=",
         "owner": "grumbel",
         "repo": "tinycmmc",
-        "rev": "2ad2d2ab7dce012bb1c9d1dbb8bdb5abd9232ecd",
+        "rev": "7bb25c7bb0229e717c0de963ac80f3e923500d88",
         "type": "github"
       },
       "original": {
@@ -138,17 +169,14 @@
         ],
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "tinycmmc": [
-          "tinycmmc"
         ]
       },
       "locked": {
-        "lastModified": 1763252588,
-        "narHash": "sha256-5pNs3MC6QH8NM4qyOrNP9ELV0TG4shncZ4Jtm34Vv+8=",
+        "lastModified": 1786354203,
+        "narHash": "sha256-RXtdsKpCozKnhbvpTvBZp9LWWyH2DmLkTsdLrsRQ3XM=",
         "owner": "grumbel",
         "repo": "uitest",
-        "rev": "d68cc9972d98be83480c5aeeab573a74bf33ea0e",
+        "rev": "c9e2b6ad83cca39d35ceda206e2c61056cd50c1a",
         "type": "github"
       },
       "original": {

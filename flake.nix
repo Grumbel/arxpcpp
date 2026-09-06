@@ -11,12 +11,10 @@
 
     logmich.url = "github:logmich/logmich";
     logmich.inputs.nixpkgs.follows = "nixpkgs";
-    logmich.inputs.tinycmmc.follows = "tinycmmc";
 
     uitest.url = "github:grumbel/uitest";
     uitest.inputs.nixpkgs.follows = "nixpkgs";
     uitest.inputs.flake-utils.follows = "flake-utils";
-    uitest.inputs.tinycmmc.follows = "tinycmmc";
 
     exspcpp.url = "github:grumbel/exspcpp";
     exspcpp.inputs.nixpkgs.follows = "nixpkgs";
