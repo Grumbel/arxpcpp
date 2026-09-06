@@ -1,5 +1,7 @@
 @PACKAGE_INIT@
 
+include(CMakeFindDependencyMacro)
+
 find_dependency(PkgConfig)
 pkg_search_module(LIBARCHIVE REQUIRED libarchive IMPORTED_TARGET)
 
